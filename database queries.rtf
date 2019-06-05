@@ -1,0 +1,329 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.14393}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 create table job(aid  varchar(8)  PRIMARY KEY, pay float, hours float, workplace varchar(100)); \par
+create table members(zid varchar(8), aid varchar(8),name varchar(25), location varchar(25),phone varchar(10), PRIMARY KEY(zid),FOREIGN KEY (aid) REFERENCES job(aid));\par
+create table schedule(sno int not null AUTO_INCREMENT, zid varchar(8), cleaning enum('yes', 'no'), cooking enum('yes', 'no'), PRIMARY KEY(sno), FOREIGN KEY (zid) REFERENCES members(zid));\par
+insert into job values ('a1822454', 8.25, 13, 'Art Museum'),('a1804923', 8.25, 20, 'New Hall'),('a1829025', 8.25, 14, ' HSC Food Services'), ('a1807437', 8, 20, 'Neptune Hall'), ('a1804899', 15, 20, 'Teaching  Assistant'), ('a1809589', 8.25, 20, 'New Hall');\par
+insert into members values('z1829025', 'a1829025', 'Sai Harini Perugupalli', 'VJW', 8622206492), ('z1822454', 'a1822454', 'Sai Sudeep Chandra', 'VZG', 8159099363),('z1804923', 'a1804923', 'Pruthvi Chambu', 'HYD', 8155259095),('z1807437', 'a1807437', 'Swaroop Vadlapatla', 'MUMBAI', 8199255765), ('z1809589', 'a1809589', 'Vamsi Simma', 'ONGOLE', 8907756745), ('z1804899', 'a1804899', 'Bhavana Mallineni', 'HYD', 8159295055);\par
+insert into schedule(zid, cleaning, cooking, day) values ('z1829025', 'no' ,'no', 'Monday'),('z1822454', 'yes', 'no', 'Monday'), ('z1809589', 'yes', 'no', 'Monday'), ('z1807437', 'no', 'yes', 'Monday');\par
+ insert into schedule(zid, cleaning, cooking) values ('z1829025', 'no', 'no','Monday');\par
+insert into schedule(zid, cleaning, cooking, day) values ('z1822454', 'yes', 'no', 'Monday'), ('z1809589', 'yes', 'no', 'Monday'), ('z1807437', 'no', 'yes', 'Monday');\par
+ insert into schedule(zid, cleaning, cooking, Day) values ('z1829025', 'yes', 'no', 'Tuesday'), ('z1804923', 'yes', 'no', 'Tuesday'), ('z1804899', 'no', 'yes', 'Tuesday'), ('z1807437', 'no', 'yes', 'Tuesday');\par
+ insert into schedule (zid, cleaning, cooking, Day) values ('z1829025', 'yes', 'yes', 'Wednesday'), ('z1822454', 'no', 'yes', 'Wednesday'), ('z1809589','no', 'yes', 'Wednesday');\par
+insert into schedule(zid, cleaning, cooking, Day) values ('z1807437', 'yes', 'yes', 'Thursday');\par
+insert into schedule(zid, cleaning, cooking, Day) values ('z1822454', 'yes', 'no', 'Friday'), ('z1809589', 'no', 'yes', 'Friday');\par
+insert into schedule(zid, cleaning, cooking, Day) values ('z1804923', 'no', 'yes', 'Friday'), ('z1804899', 'yes', 'no', 'Friday');\par
+ insert into schedule(zid, cleaning, cooking, Day) values ('z1809589', 'yes', 'yes', 'Saturday');\par
+ insert into schedule(zid, cleaning, cooking, Day) values ('z1822454', 'yes', 'yes', 'Sunday');\par
+select m.name, m.location, m.phone, j.pay, j.hours, j.workplace from members m, job j where m.aid=j.aid;\par
+select s.zid, s.cleaning, s.cooking, s.Day, m.name from schedule s, members m where s.zid=m.zid;\par
+\par
+\par
+\par
+\b PHP:\par
+\b0 HTML PAGE: \par
+<!DOCTYPE HTML>\par
+<html>\par
+<head>\par
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\par
+<style>\par
+table \{\par
+    font-family: arial, sans-serif;\par
+    border-collapse: collapse;\par
+    width: 100%;\par
+\}\par
+\par
+td, th \{\par
+    border: 1px solid #dddddd;\par
+    text-align: left;\par
+    padding: 8px;\par
+\}\par
+\par
+tr:nth-child(even) \{\par
+    background-color: #dddddd;\par
+\}\par
+</style>\par
+</head>\par
+<body>\par
+\par
+<?php\par
+//Name: Sai Harini Perugupalli\par
+//zid: z1829025\par
+//Assignment: 11\par
+//Due Date: 11/27/2017\par
+$username="z1829025";\par
+$password="1996May04";\par
+$database="z1829025";\par
+$dsn="mysql:host=students;dbname=z1829025";\par
+$link = new PDO($dsn, $username, $password);\par
+if (!$link) \{\par
+        die('Could not connect: ' . mysql_error());\par
+\}\par
+\par
+//text box creation to enter Horse Info\par
+echo "<div class='my_class'>";\par
+   echo "<form action='1_2.php' method='get'>";\par
+    //echo "<option value='distance'>".$row[distance]."</option>";\par
+//echo "<option value='distance'>".$row[distance]."</option>";\par
+   echo "<label for='Name'> NAME </label>";\par
+echo " <input type='text' name='name1' value=''>";\par
+echo "<label for='Name'> SIRE </label>";\par
+echo " <input type='text' name='name2' value=''>";\par
+echo "<label for='Name'> DAM </label>";\par
+echo " <input type='text' name='name3' value=''>";\par
+   echo "</div>";\par
+   echo "<div class='road'>";\par
+   echo  "<input type='submit' value='submit' name='submit'>";\par
+   echo "</div>";\par
+   echo "</form>";\par
+   echo "<br/>";\par
+\par
+\par
+echo "<h4> LIST OF HORSES <h3>";\par
+echo "<table>";\par
+echo "<tr>";\par
+echo "<th>NAME </th>";\par
+echo "<th>SIRE</th>";\par
+echo "<th>DAM</th>";\par
+echo "</tr>";\par
+$sql1 = "select * from horse;";\par
+foreach ($link -> query($sql1) as $row) \{\par
+        echo "<tr><td>".$row["name"]."</td>";\par
+        echo "<td>".$row["sire"]."</td>";\par
+        echo "<td>".$row["dam"]."</td></tr>";\par
+\}\par
+echo "</select>";\par
+echo "</form>";\par
+\par
+echo "</table>";\par
+\par
+\par
+\b 2nd page:\par
+\b0 <!DOCTYPE HTML>\par
+\par
+<html>\par
+<head>\par
+</head>\par
+<h2 align="center" >Assignment 11</h2>\par
+<?php\par
+/*********************************************\par
+Name: Sai Harini Perugupalli\par
+zid: z1829025\par
+Assignment: 11\par
+Due Date: 11/27/2017\par
+**********************************************/\par
+$username="z1829025";\par
+$password="1996May04";\par
+$database="z1829025";\par
+$dsn="mysql:host=students;dbname=z1829025";\par
+$link = new PDO($dsn, $username, $password);\par
+if (!$link) \{\par
+        die('Could not connect: ' . mysql_error());\par
+\}\par
+if(isset($_GET[submit]))\par
+     \{\par
+       $sql="insert into horse(Name,Sire,Dam) values (?,?,?)";\par
+       $prepared = $link->prepare($sql);\par
+       $ret = $prepared->execute((array($_GET[name1],$_GET[name2],$_GET[name3])));\par
+       $row= $prepared->fetch();\par
+       echo "SUCCESSFUL";\par
+     \}\par
+\par
+?>\par
+</html>\par
+\par
+\par
+\b links: {\b0{\field{\*\fldinst{HYPERLINK http://students.cs.niu.edu/~z1829025/Project/1.php }}{\fldrslt{http://students.cs.niu.edu/~z1829025/Project/1.php\ul0\cf0}}}}\b0\f0\fs22\par
+\b list of members:\par
+\b0 <?php\par
+/******************************************************************\par
+Name: Sai Harini Perugupalli\par
+ZID: z1829025\par
+Assignment: 10\par
+Due Date: 11/21/2017\par
+*****************************************************************/\par
+\par
+$username = "z1829025";\par
+$password = "1996May04";\par
+$dbname = "z1829025";\par
+//connection\par
+try\{\par
+        $conn = new PDO("mysql:host=students;dbname=$dbname", $username, $password);\par
+\par
+        \}\par
+catch(PDOException $e)\{\par
+        echo "Connection failed: " . $e->getMessage();\par
+         \}\par
+//table for showing all of the horse names along with their sires and dams\par
+$sql = "select name, sire, dam from horse;";\par
+$result = $conn->query($sql);\par
+\par
+\par
+if ($result ->  rowCount() > 0)\{\par
+\par
+echo "<h3> List of horse names, sires and Dams<h3>";\par
+//echo "hallo";\par
+echo "<table  border = '1'>";\par
+echo "<tr>";\par
+echo "<th> Horse name </th>";\par
+echo "<th> Sire </th>";\par
+echo "<th> Dam </th>";\par
+echo "</tr>";\par
+\par
+foreach ($conn -> query($sql) as $row) \{\par
+        echo "<tr><td>".$row["name"]."</td>";\par
+        echo "<td>".$row["sire"]."</td>";\par
+        echo "<td>".$row["dam"]."</td></tr>";\par
+\par
+    \}\par
+echo "</table>";\par
+\}\par
+echo "\\n";\par
+/****************************************************************************************/\par
+//table for showing all of the race names and distances\par
+$sql = "select name, distance from race;";\par
+$result = $conn->query($sql);\par
+\par
+\par
+if ($result ->  rowCount() > 0)\{\par
+\par
+echo "<h3> List of Race names and distance<h3>";\par
+//echo "hallo";\par
+echo "<table  border = '1'>";\par
+echo "<tr>";\par
+echo "<th> Race name </th>";\par
+echo "<th> Distance </th>";\par
+echo "</tr>";\par
+\par
+foreach ($conn -> query($sql) as $row) \{\par
+        echo "<tr><td>".$row["name"]."</td>";\par
+        echo "<td>".$row["distance"]."</td>";\par
+        //echo "<td>".$row["dam"]."</td></tr>";\par
+\par
+    \}\par
+echo "</table>";\par
+\}\par
+/****************************************************************************************/\par
+//$sql = "select distinct distance from race;";\par
+//$result = $conn->query($sql);\par
+\par
+echo "<form  action='distance.php' method='GET'>";\par
+$sql = "select distinct distance from race;";\par
+$result = $conn->query($sql);\par
+\par
+if ($result -> rowCount() > 0)\par
+echo "<select name='distance'>";\par
+foreach ($result as $row)\par
+\{\par
+        echo "<option name =' ".$row['distance']." '>".$row['distance']."</option>";\par
+        \}\par
+echo "</select>";\par
+                   echo "<input type='submit'>";\par
+echo "</form>";\par
+/****************************************************************************************/\par
+\par
+echo "<form  action='horse.php' method='GET'>";\par
+$sql = "select name,horse_id from horse;";\par
+$result = $conn->query($sql);\par
+\par
+if ($result -> rowCount() > 0)\par
+echo "<select name='horse_id'>";\par
+foreach ($result as $row)\par
+\{\par
+        echo "<option value='".$row['horse_id'] ."'>".$row['horse_id'].".".$row['name']."</option>";\par
+        \}\par
+echo "</select>";\par
+echo "<input type='submit'>";\par
+echo "</form>";\par
+\par
+\par
+?>\par
+\par
+\b drop down values for distances:\par
+\b0 <?php\par
+//Name: Sai Harini Perugupalli\par
+//ZID: z1829025\par
+//Assignment: 10\par
+//Date: 11/21/2017\par
+\par
+$username = "z1829025";\par
+$password = "1996May04";\par
+$dbname = "z1829025";\par
+\par
+try\{\par
+        $conn = new PDO("mysql:host=students;dbname=$dbname", $username, $password);\par
+\par
+        \}\par
+catch(PDOException $e)\{\par
+        echo "Connection failed: " . $e->getMessage();\par
+\par
+\}\par
+echo "<h3>Drop down values for Distances</h3>";\par
+echo "<form  action='distance.php' method='GET'>";\par
+$sql = "select distinct distance from race;";\par
+$result = $conn->query($sql);\par
+\par
+if ($result -> rowCount() > 0)\par
+echo "<select name='distance'>";\par
+foreach ($result as $row)\par
+\{\par
+        echo "<option name =' ".$row['distance']." '>".$row['distance']."</option>";\par
+        \}\par
+echo "</select>";\par
+echo "<input type='submit'>";\par
+echo "</form>";\par
+\par
+?>\par
+\b distance.php:\par
+<?php\par
+//Name: Sai Harini Perugupalli\par
+//ZID: z1829025\par
+//Assignment: 10\par
+//Date: 11/21/2017\par
+\par
+//table for  distances\par
+\par
+$username = "z1829025";\par
+$password = "1996May04";\par
+$dbname = "z1829025";\par
+\par
+try\{\par
+        $conn = new PDO("mysql:host=students;dbname=$dbname", $username, $password);\par
+\par
+        \}\par
+catch(PDOException $e)\{\par
+        echo "Connection failed: " . $e->getMessage();\par
+         \}\par
+\par
+$num = $_GET['distance'];\par
+//echo $num;\par
+\par
+$sql = "SELECT name,distance from race where distance = '$num';";\par
+$prepared = $conn->prepare($sql);\par
+$result = $prepared->execute((array($num)));\par
+echo "<h3>Race name and Distance for the track $num</h3>";\par
+if($prepared->rowCount() != NULL)\{\par
+echo "<table border = '1'; class = 'table'>";\par
+echo "<tr>";\par
+echo "<th>Name</th>";\par
+echo "<th>Distance</th>";\par
+echo "</tr>";\par
+while(($row = $prepared->fetch()))\{\par
+echo "<tr>";\par
+echo "<td>".$row['name']."</td>";\par
+echo "<td>".$row['distance']."</td>";\par
+echo "</tr>";\par
+\}\par
+echo "</table>";\par
+\}\par
+/*$stmt = $conn->prepare($sql);\par
+if ($stmt->execute(array($_GET['distance']))) \{\par
+  while ($row = $stmt->fetch()) \{\par
+    echo $row['name'];\par
+  \}\par
+\}*/\par
+\par
+?>\b0\par
+}
+ 
